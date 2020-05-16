@@ -1,0 +1,8 @@
+{
+  "module": "commonjs",
+  "target": "es5",
+  "sourceMap": true,
+  "compilerOptions": {
+    "watch": true
+  }
+}
