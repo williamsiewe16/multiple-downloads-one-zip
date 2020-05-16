@@ -1,9 +1,9 @@
-# download-and-zip
+# multiple-downloads-one-zip
 A JavaScript module to download multiple files and zip them
 
 ### install
 ```
-npm install download-and-zip --save 
+npm install multiple-downloads-one-zip --save 
 ```
 
 ## API
@@ -42,7 +42,7 @@ if  `options.onEnd` is provided, il will be called when all downloads are comple
 
 ```javascript  
   // require the module
-  let download = require('download-and-zip')
+  let download = require('multiple-downloads-one-zip')
   
   // Urls where files are downloaded from
   let urls = [
