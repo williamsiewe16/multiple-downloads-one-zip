@@ -15,7 +15,8 @@ module.exports = {
         onEnd ?: (info: {zip_path: string}) => void;
     }) => {
         const dir_name = options.zip_name ? options.zip_name.split(' ').join('_') : new Date().getTime().toString(16)
-        let zip_dir = options.zip_dir ? (options.zip_dir != "" ? `${options.zip_dir}/` : "") : "", zip_path = `${zip_dir}${dir_name}.zip`, files_Path = []
+        let zip_dir = options.zip_dir ? (options.zip_dir != "" ? `${options.zip_dir}/` : "") : "", zip_path = `${zip_dir}${dir_name}.zip`;
+        let files_Path = []
 
         let exec = util.promisify(childProcess.exec)
         let emitter = new events.EventEmitter()
