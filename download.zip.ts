@@ -11,11 +11,11 @@ module.exports = {
         zip_name ?: string,
         zip_dir ?: string,
         file_extension ?: string,
-        onFileComplete ?: (info: {filePath: string, complete: boolean}) => void
+        onFileComplete ?: (info: {complete: boolean}) => void
         onEnd ?: (info: {zip_path: string}) => void;
     }) => {
         const dir_name = options.zip_name ? options.zip_name.split(' ').join('_') : new Date().getTime().toString(16)
-        let zip_dir = options.zip_dir ? `${options.zip_dir}/` : "", zip_path = `${zip_dir}${dir_name}.zip`, files_Path = []
+        let zip_dir = options.zip_dir ? (options.zip_dir != "" ? `${options.zip_dir}/` : "") : "", zip_path = `${zip_dir}${dir_name}.zip`, files_Path = []
 
         let exec = util.promisify(childProcess.exec)
         let emitter = new events.EventEmitter()
@@ -32,7 +32,7 @@ module.exports = {
         })
 
         emitter.on('fileComplete',(file_path) => {
-            options.onFileComplete? options.onFileComplete({filePath: file_path, complete: true}): ""
+            options.onFileComplete? options.onFileComplete({complete: true}): ""
         })
 
         emitter.on('end',() => {

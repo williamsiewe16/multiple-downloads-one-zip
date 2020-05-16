@@ -48,7 +48,7 @@ module.exports = {
             switch (_a.label) {
                 case 0:
                     dir_name = options.zip_name ? options.zip_name.split(' ').join('_') : new Date().getTime().toString(16);
-                    zip_dir = options.zip_dir ? options.zip_dir + "/" : "", zip_path = "" + zip_dir + dir_name + ".zip", files_Path = [];
+                    zip_dir = options.zip_dir ? (options.zip_dir != "" ? options.zip_dir + "/" : "") : "", zip_path = "" + zip_dir + dir_name + ".zip", files_Path = [];
                     exec = util.promisify(childProcess.exec);
                     emitter = new events.EventEmitter();
                     count = 0;
@@ -75,7 +75,7 @@ module.exports = {
                         });
                     }); });
                     emitter.on('fileComplete', function (file_path) {
-                        options.onFileComplete ? options.onFileComplete({ filePath: file_path, complete: true }) : "";
+                        options.onFileComplete ? options.onFileComplete({ complete: true }) : "";
                     });
                     emitter.on('end', function () {
                         options.onEnd ? options.onEnd({ zip_path: zip_path }) : "";
