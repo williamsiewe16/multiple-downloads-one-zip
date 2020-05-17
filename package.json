@@ -1,10 +1,11 @@
 {
   "name": "multiple-downloads-one-zip",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": {
     "url": "https://github.com/williamsiewe16/",
     "email": "loicosiewe16@gmail.com"
   },
+  "main": "download.zip.js",
   "engines": {
     "node": "13.0.1"
   },
@@ -15,5 +16,9 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "babel-preset-expo": "~8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamsiewe16/multiple-downloads-one-zip"
   }
 }
