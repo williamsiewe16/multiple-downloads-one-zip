@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,41 +34,59 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
+var _this = this;
 var axios = require('axios');
 var fs = require('fs');
 var util = require('util');
 var childProcess = require('child_process');
 var events = require('events');
+var os = require('os');
 module.exports = {
-    downloadAndZip: function (urls, options) { return __awaiter(void 0, void 0, void 0, function () {
-        var dir_name, zip_dir, zip_path, files_Path, exec, emitter, count, _loop_1, i;
+    downloadAndZip: function (urls, options) { return __awaiter(_this, void 0, void 0, function () {
+        var myOs, dir_name, zip_dir, zip_path, files_Path, exec, emitter, count, _loop_1, i;
+        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    myOs = os.platform() === 'win32' ? "Windows" :
+                        os.platform() === 'darwin' ? "Mac OS" :
+                            os.platform() === 'linux' ? "Linux" : "";
                     dir_name = options.zip_name ? options.zip_name.split(' ').join('_') : new Date().getTime().toString(16);
-                    zip_dir = options.zip_dir ? (options.zip_dir != "" ? options.zip_dir + "/" : "") : "", zip_path = "" + zip_dir + dir_name + ".zip";
+                    zip_dir = options.zip_dir ? (options.zip_dir != "" ? "".concat(options.zip_dir) : "") : "", zip_path = "".concat(zip_dir, "/").concat(dir_name);
                     files_Path = [];
                     exec = util.promisify(childProcess.exec);
                     emitter = new events.EventEmitter();
                     count = 0;
-                    emitter.on('addAll', function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var script1, script2, script3;
+                    emitter.on('addAll', function () { return __awaiter(_this, void 0, void 0, function () {
+                        var script1, script2, script3, script1, script2;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    script1 = "rar a " + zip_path + " " + dir_name;
+                                    if (!(os.platform() === 'win32')) return [3 /*break*/, 4];
+                                    script1 = "rar a ".concat(zip_path, ".zip ").concat(dir_name);
                                     return [4 /*yield*/, exec(script1)];
                                 case 1:
                                     _a.sent();
-                                    script2 = "del /q " + dir_name;
-                                    script3 = "rmdir " + dir_name;
+                                    script2 = "del /q ".concat(dir_name);
+                                    script3 = "rmdir ".concat(dir_name);
                                     return [4 /*yield*/, exec(script2)];
                                 case 2:
                                     _a.sent();
                                     return [4 /*yield*/, exec(script3)];
                                 case 3:
                                     _a.sent();
+                                    return [3 /*break*/, 7];
+                                case 4:
+                                    script1 = "tar -cf ".concat(zip_path, ".tar ").concat(dir_name);
+                                    return [4 /*yield*/, exec(script1)];
+                                case 5:
+                                    _a.sent();
+                                    script2 = "rm -rf ".concat(dir_name);
+                                    return [4 /*yield*/, exec(script2)];
+                                case 6:
+                                    _a.sent();
+                                    _a.label = 7;
+                                case 7:
                                     emitter.emit('end');
                                     return [2 /*return*/];
                             }
@@ -83,19 +100,19 @@ module.exports = {
                     });
                     _loop_1 = function (i) {
                         var url, extension, file_path, res, writer, download;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
                                 case 0:
-                                    url = urls[i], extension = options.file_extension || "jpg", file_path = dir_name + "/" + (i + 1) + "." + extension;
+                                    url = urls[i], extension = options.file_extension || "jpg", file_path = "".concat(dir_name, "/").concat(i + 1, ".").concat(extension);
                                     return [4 /*yield*/, axios(url, { responseType: 'stream' })];
                                 case 1:
-                                    res = _a.sent();
+                                    res = _b.sent();
                                     return [4 /*yield*/, fs.mkdir(dir_name, function () { })];
                                 case 2:
-                                    _a.sent();
+                                    _b.sent();
                                     writer = fs.createWriteStream(file_path);
                                     download = res.data.pipe(writer);
-                                    download.on('finish', function () { return __awaiter(void 0, void 0, void 0, function () {
+                                    download.on('finish', function () { return __awaiter(_this, void 0, void 0, function () {
                                         return __generator(this, function (_a) {
                                             files_Path.push(file_path);
                                             count++;
