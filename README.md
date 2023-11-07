@@ -51,7 +51,7 @@ if  `options.onEnd` is provided, il will be called when all downloads are comple
         ]
 
   let zip_name = "myZip" // avoid spaces
-  let zip_dir = "public/zips" // give an existing directory
+  let zip_dir = "." // give an existing directory
   
   // download and zip the files
   //  Since it is an async function, we must put `await` before, and the function must be called in an `async` function
@@ -59,11 +59,9 @@ if  `options.onEnd` is provided, il will be called when all downloads are comple
     zip_name: zip_name,
     zip_dir: zip_dir,
     onEnd: (data) => {
-       ...
        // do what we want with the data containing the zip path
     },
     onFileComplete: (data) => {
-        ...
         // do what we want
     }
  })
